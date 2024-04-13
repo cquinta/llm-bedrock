@@ -7,3 +7,7 @@ class PromptBody(BaseModel):
 
 class ImagePromptBody(PromptBody):
     number_of_images: int
+
+
+class VectorStore(BaseModel):
+    name: str

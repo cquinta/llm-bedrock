@@ -5,21 +5,14 @@ from dotenv import load_dotenv, dotenv_values
 from pymongo import MongoClient, errors
 from pydantic import BaseModel
 from .text import TextPrompt
+from .data_source import Data_Source
+from .vector_store import Vector_Store
 from .request_data import PromptBody
-
 # fastapi router
 router = APIRouter()
 
-# connect to mongo
-client = MongoClient(os.getenv("MongoURI"))
-
-# check the loaded env vars
-all_values = dotenv_values(".env")
-# print(all_values)
-
-
-
 # generate text prompts
+
 # expects a prompt in the post body
 @router.post("/text/prompt")
 def prompt(prompt: PromptBody):
@@ -31,3 +24,20 @@ def prompt(prompt: PromptBody):
         "reply": prompt_reply,
         "prompt": prompt,
     }
+
+@router.post("/vector/store")
+def vector_store(name: str):
+    vector_reply = Vector_Store.create(name=name)
+    return(
+        {"vector_store": vector_reply,
+        }
+    )
+
+
+@router.get("/datasource/list")
+def datasource():
+    
+    # get prompt answer
+    ds_reply = Data_Source.list()
+
+    return ds_reply
