@@ -13,8 +13,6 @@ load_dotenv()
 
 # import router
 
-
-
 # create server instance
 app = FastAPI(desc="LLM Basic API")
 

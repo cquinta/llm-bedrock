@@ -8,6 +8,8 @@ from .text import TextPrompt
 from .data_source import Data_Source
 from .vector_store import Vector_Store
 from .request_data import PromptBody
+from .vector_index import Vector_Index
+from .knowledge_base import Knowledge_Base
 # fastapi router
 router = APIRouter()
 
@@ -25,17 +27,16 @@ def prompt(prompt: PromptBody):
         "prompt": prompt,
     }
 
-@router.post("/vector/store")
-def vector_store(name: str):
-    vector_reply = Vector_Store.create(name=name)
+@router.post("/knowledge_base/create")
+def knowledge_base(name: str):
+    knowledge_base_reply = Knowledge_Base.create(knowledge_base_name=name)
     return(
-        {"vector_store": vector_reply,
+        {"vector_store": knowledge_base_reply[0], 
+         "vector_index": knowledge_base_reply[1],
         }
     )
 
 
-@router.get("/datasource/list")
-def datasource():
     
     # get prompt answer
     ds_reply = Data_Source.list()
