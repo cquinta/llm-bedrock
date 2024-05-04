@@ -1,3 +1,5 @@
+langchain
+langchain-aws
 annotated-types
 anyio
 boto3
@@ -28,3 +30,4 @@ websockets
 opensearch-py
 retrying
 utility
+numexpr
